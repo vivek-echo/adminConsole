@@ -1,0 +1,136 @@
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+li {
+  margin: 30px 0;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+input {
+  cursor: pointer;
+  accent-color: #4caf50;
+}
+
+/* Switch Style for Global Link */
+.global-switch {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 20px;
+}
+
+.global-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.global-switch-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  border-radius: 20px;
+  transition: 0.4s;
+}
+
+.global-switch input:checked + .global-switch-slider {
+  background-color: #4caf50;
+}
+
+.global-switch-slider:before {
+  position: absolute;
+  content: '';
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+.global-switch input:checked + .global-switch-slider:before {
+  transform: translateX(14px);
+}
+
+/* Tree Levels */
+ul ul {
+  margin-left: 20px;
+  padding-left: 10px;
+  border-left: 2px dashed #ddd;
+}
+
+li > input[type='checkbox'] {
+  margin-right: 10px;
+  accent-color: #4caf50;
+}
+
+li > i {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+/* Highlight Levels with Colors */
+ul > li {
+  color: #000;
+  font-weight: bold;
+}
+
+ul > li ul > li {
+  color: #6a00ac;
+}
+
+ul > li ul > li ul > li {
+  color: #056dc2;
+}
+
+ul > li ul > li ul > li ul > li {
+  color: #ed2213;
+}
+
+/* Buttons and Icons */
+i {
+  transition: transform 0.2s ease-in-out;
+}
+
+.linkname {
+  transition: color 0.1s ease-in-out, transform 0.1s ease-in-out;
+}
+
+/* Hover effect for the icon of the hovered link only */
+li:hover .linkname > i {
+  color: #ff9800; /* Yellow color */
+  transform: scale(1.1); /* Slight zoom-in effect */
+}
+
+/* Container for Menu Data */
+.menuLinkData {
+  border: 2px dashed #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.menuLinkDataHr {
+  border-top: 2px dashed #ddd;
+}
+
+/* Buttons */
+button.btn-success {
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button.btn-success:hover {
+  background-color: #388e3c; /* Darker green on hover */
+  transform: scale(1.05);
+}

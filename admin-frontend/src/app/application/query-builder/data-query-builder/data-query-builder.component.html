@@ -1,0 +1,73 @@
+<div class="page-header">
+    <h1 class="page-title">Query Builder</h1>
+    <nav class="breadcrumb__section">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a *ngIf="globalMenuData?.gl_path" [routerLink]="globalMenuData.gl_path">
+                    <i [class]="globalMenuData.gl_class" class="text-success"></i> <!-- Icon for global menu -->
+                </a>
+            </li>
+            <li class="breadcrumb-item">{{ breadCrumData.globalMenu }}</li> <!-- Global menu name -->
+            <li class="breadcrumb-item"><b>{{ breadCrumData.primaryMenu }}</b></li> <!-- Primary menu name -->
+        </ol>
+    </nav>
+</div>
+
+
+<mat-card class="cardWithShadow theme-card">
+    <div class="bg-holder d-none d-lg-block bg-card"
+        style="background-image:url(../../assets/img/icons/spot-illustrations/corner-4.png);"></div>
+    <mat-card-content >
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="card-title">Query Platform</h3>
+                <form [formGroup]="dataQueryForm" (ngSubmit)="searchForm()">
+                    <div class="form-floating mt-1">
+                        <textarea class="form-control" id="queryText" placeholder="Please Enter Your Query"
+                            name="queryText" formControlName="queryText" style="height: 120px"></textarea>
+                        <label for="queryText">Please Enter Your Query</label>
+                    </div>
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-success"><i class="mdi mdi-database-search me-1"></i>
+                            Execute
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </mat-card-content>
+
+</mat-card>
+
+<mat-card class="cardWithShadow theme-card">
+    <mat-card-content>
+        <div class="row" *ngIf="queryTableData.data.length > 0; else elseTable; ">
+            <div id="tableExample">
+                <div id="table-responsive scrollbar">
+                    <table mat-table [dataSource]="queryTableData"
+                        class="mat-elevation-z8 table table-bordered  fs-10 mb-0">
+                        <!-- Dynamic columns -->
+                        <ng-container *ngFor="let column of queryColumnNames" [matColumnDef]="column">
+                            <th mat-header-cell *matHeaderCellDef  class=" text-center w-100"> {{ column }} </th>
+                            <td mat-cell *matCellDef="let row" > {{ row[column] }} </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="queryColumnNames"></tr>
+                        <tr mat-row *matRowDef="let row; columns: queryColumnNames;"></tr>
+                    </table>
+
+                    <mat-paginator [length]="totalRecords" [pageSize]="pageSize"
+                        [pageSizeOptions]="[5, 10, 25, 50,100,500]" (page)="handlePageEvent($event)"
+                        showFirstLastButtons>
+                    </mat-paginator>
+                </div>
+            </div>
+
+        </div>
+        <ng-template #elseTable>
+            <div class="alert alert-success text-center  fw-bold" role="alert" >
+                {{ "Please Search to Execute Query..." }}
+            </div>
+        </ng-template>
+    </mat-card-content>
+</mat-card>

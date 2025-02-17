@@ -1,0 +1,51 @@
+<div class="blank-layout-container justify-content-center align-items-center bg-light position-relative">
+    <div class="position-relative row w-100 h-100 bg-gradient justify-content-center">
+        <div class="col-lg-4 d-flex align-items-center">
+            <mat-card class="cardWithShadow boxed-auth">
+                <mat-card-content class="p-32">
+                    <div class="text-center">
+                        <h3 class="text-success"><i class="fa-solid fa-laptop-code m-2"></i> <span
+                                class=" f-w-600">Admin Console</span></h3>
+                    </div>
+
+                    <div class="or-border m-t-30">Sign in Here</div>
+                    <form [formGroup]="loginForm" (ngSubmit)="submitForm()" class="m-t-30">
+                        <!-- Email Address -->
+                        <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">
+                            <i class="fa-solid fa-envelope me-2"></i> Email Address
+                        </mat-label>
+                        <mat-form-field appearance="outline" class="w-100">
+                            <input type="text" matInput placeholder="Enter your Email Address" formControlName="email"
+                                name="email" />
+                        </mat-form-field>
+
+                        <!-- Password -->
+                        <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">
+                            <i class="fa-solid fa-key me-2"></i> Password
+                        </mat-label>
+                        <mat-form-field appearance="outline" class="w-100">
+                            <input matInput type="password" placeholder="Enter your Password" formControlName="password"
+                                name="password" />
+                            <!-- <mat-icon matSuffix>visibility</mat-icon> -->
+                        </mat-form-field>
+
+                        <div class="d-flex align-items-center m-b-12">
+                            <!-- Forgot Password Link -->
+                            <a [routerLink]="['/']"
+                                class="text-success f-w-600 text-decoration-none m-l-auto f-s-14">Forgot Password
+                                ?</a>
+                        </div>
+
+                        <!-- Sign In Button -->
+                        <button  type="submit" class="btn btn-outline-success w-100">
+                            <i class="fa-solid fa-arrow-right-to-bracket"></i> Sign In
+                        </button>
+                    </form>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+    <!-- Background Image -->
+    <img src="assets/images/backgrounds/bg1.png" alt="ascsa" class="bg-image">
+</div>
+

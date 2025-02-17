@@ -1,0 +1,36 @@
+<div class="page-header">
+    <h1 class="page-title">Manage Links</h1>
+    <nav class="breadcrumb__section">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a *ngIf="globalMenuData?.gl_path" [routerLink]="globalMenuData.gl_path">
+                    <i [class]="globalMenuData.gl_class" class="text-success"></i> <!-- Icon for global menu -->
+                </a>
+            </li>
+            <li class="breadcrumb-item">{{ breadCrumData.globalMenu }}</li> <!-- Global menu name -->
+            <li class="breadcrumb-item"><b>{{ breadCrumData.primaryMenu }}</b></li> <!-- Primary menu name -->
+        </ol>
+    </nav>
+</div>
+
+
+
+<div class="card">
+    
+    <div class="card-header">
+        
+        <ul class="nav nav-pills custom-nav-pills" id="myTab" role="tablist">
+            <li class="nav-item p-1" *ngFor="let item of tabMenuData; index as i">
+                <a class="nav-link" [routerLink]="item.tab_path" routerLinkActive="active">
+                    <i [class]="item.tab_class + ' pe-2'"></i>{{ item.tab_name }}
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body">
+
+        <!-- <div class="tab-content border border-top-0 p-3" id="myTabContent"> -->
+        <router-outlet></router-outlet>
+        <!-- </div> -->
+    </div>
+</div>

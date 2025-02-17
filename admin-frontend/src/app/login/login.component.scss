@@ -1,0 +1,26 @@
+.bg-light{
+    background-color: #f2f1f1 !important;
+}
+
+
+.blank-layout-container {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.bg-image {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 500px; /* Adjust the size as needed */
+    // z-index: -1; /* Place it behind other content */
+    pointer-events: none; /* Prevent it from interfering with user interactions */
+}
+.text-success,.or-border {
+    color: #015909 !important;
+}
+
+.headerText {
+  font-weight: 700 !important;
+}

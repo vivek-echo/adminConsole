@@ -1,0 +1,188 @@
+@import "assets/theme.min.css";
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+.form-control:focus {
+    border-color: #157347 !important;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 128, 0, 0.25) !important;
+
+}
+
+.form-select:focus {
+    border-color: #157347 !important;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 128, 0, 0.25) !important;
+}
+
+.input-group:focus-within {
+    color: var(--primary-green) !important;
+    background-color: var(--bs-body-bg) !important;
+    border-color: #86fe94 !important;
+    outline: 0;
+    box-shadow: 0 0 0 .15rem rgba(25, 135, 84, 0.341) !important;
+    border-radius: .375rem;
+    /* Optional for consistent styling */
+}
+
+.custom-nav-pills .nav-link {
+    color: #157347;
+    /* Green color for default text */
+    background-color: transparent;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.custom-nav-pills .nav-link.active {
+    color: #fff;
+    /* White text for active tab */
+    background-color: #157347 !important;
+    /* Green background for active tab */
+    border-color: #157347;
+    /* Optional: Green border for active tab */
+}
+
+.custom-nav-pills .nav-link:hover {
+    color: #218838;
+    /* White text on hover */
+}
+
+.page-header {
+    // margin-bottom: 16px; /* Space between header and content */
+    padding: 10px;
+    /* Optional padding */
+    background-color: #f8f9fa;
+    /* Optional background */
+}
+
+.page-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    /* Title color */
+    margin-bottom: 8px;
+}
+
+.form-label {
+    padding-top: calc(0.3125rem + var(--falcon-border-width));
+    padding-bottom: calc(0.3125rem + var(--falcon-border-width));
+    margin-bottom: 0;
+    font-size: inherit;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+
+.fillter {
+    position: absolute;
+    right: 21px;
+    top: 19px;
+    background-color: #157347;
+    border-radius: 5px;
+}
+
+#filter .filter-body {
+    border: 2px dotted #ddd;
+    padding: 1rem;
+    margin-bottom: 3rem;
+    background-color: rgb(253 205 37 / 8%);
+}
+
+
+ng-select {
+    width: 100%;
+    // height: 50px; /* Increase the height */
+    font-size: 16px;
+    /* Adjust text size for better alignment */
+}
+
+.ng-select .ng-select-container {
+    color: #242323 !important;
+}
+
+ng-select .ng-value {
+    display: flex;
+    align-items: center;
+}
+
+ng-select .ng-value i {
+    margin-right: 8px;
+    font-size: 1.2rem;
+    /* Adjust icon size */
+}
+
+ng-select .ng-option {
+    display: flex;
+    align-items: center;
+}
+
+
+
+ng-select.ng-select-focused .ng-select-container {
+    border-color: #157347 !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 128, 0, 0.25);
+}
+
+// .btn-success{
+//     background-color: #157347 !important;
+// }
+
+
+.modal-container {
+    display: flex;
+    flex-direction: column;
+    // max-width: 600px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background-color: #E6F9E6;
+    color: white;
+  }
+  
+  .modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  .modal-body {
+    padding: 16px;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #333;
+  }
+  
+  .info-box {
+    margin-top: 16px;
+    padding: 12px;
+    background-color: #e8f5e9;
+    border-left: 4px solid #66bb6a;
+    border-radius: 4px;
+    color: #2e7d32;
+  }
+  
+  .modal-footer {
+    padding: 16px;
+    background-color: #f1f1f1;
+    border-top: 1px solid #e0e0e0;
+  }
+  
+  .mat-dialog-actions button {
+    margin-left: 8px;
+  }

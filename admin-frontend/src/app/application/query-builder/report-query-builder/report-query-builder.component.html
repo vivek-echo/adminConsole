@@ -1,0 +1,191 @@
+<div class="page-header">
+    <h1 class="page-title">Query Builder </h1>
+    <nav class="breadcrumb__section">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a *ngIf="globalMenuData?.gl_path" [routerLink]="globalMenuData.gl_path">
+                    <i [class]="globalMenuData.gl_class" class="text-success"></i> <!-- Icon for global menu -->
+                </a>
+            </li>
+            <li class="breadcrumb-item">{{ breadCrumData.globalMenu }}</li> <!-- Global menu name -->
+            <li class="breadcrumb-item"><b>{{ breadCrumData.primaryMenu }}</b></li> <!-- Primary menu name -->
+        </ol>
+    </nav>
+</div>
+
+<mat-card class="cardWithShadow theme-card">
+
+    <div class="card-header">
+        <div class=" d-lg-flex justify-content-between flex-nowrap">
+            <h3 class="card-title ">Query Report <i class="mdi mdi-file-find"></i></h3>
+            <!-- Button trigger modal -->
+            <div>
+                <button type="button" class="btn btn-outline-success btn-icon-text mb-2 me-2" data-bs-toggle="collapse"
+                    href="#showQueryReports" role="button" aria-expanded="false"
+                    aria-controls="showQueryReportsExample">Show Query Reports
+                    <i class="mdi mdi-database-search btn-icon-append"></i>
+                </button>
+                <button type="button" class="btn btn-outline-success btn-icon-text mb-2" id="sowDatabase"
+                    data-bs-toggle="modal" data-bs-target="#staticBackdrop">Show Database
+                    <i class="mdi mdi-database btn-icon-append"></i>
+                </button>
+            </div>
+
+        </div>
+    </div>
+    <div class="collapse" id="showQueryReports">
+        <mat-card-content class="b-t-1" class="saveDataQueryReport">
+
+            <div class="d-flex justify-content-between  hover-actions-trigger btn-reveal-trigger px-x1 border-200 todo-list-item"
+                [ngClass]="i != 0 ? 'border-top':''" *ngFor="let item of queryReportData;index as i;">
+                <div class="form-check mb-0 d-flex align-items-center">
+                    <input
+                        class="form-check-input rounded-circle form-check-line-through p-2 form-check-input-{{item?.classCss}}"
+                        type="radio" name="dataReportRadio" [checked]="selectedQuery === item?.queryTxt"
+                        (click)="toggleCheck(item?.queryTxt)" id="checkbox-todo-{{i}}" />
+                    <label class="form-check-label mb-0 p-3" for="checkbox-todo-{{i}}">{{item?.queryLbl}}</label>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="hover-actions">
+                        <button class="btn btn-tertiary icon-item rounded-3 me-2 fs-11 icon-item-sm">
+                            <i class="fa-solid fa-file-pen"></i>
+                        </button>
+                        <!-- <button class="btn btn-tertiary icon-item rounded-3 me-2 fs-11 icon-item-sm">
+                            <span class="fas fa-user-plus"></span>
+                        </button> -->
+                    </div>
+                    <div class="dropdown font-sans-serif btn-reveal-trigger"><button
+                            class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal-sm transition-none"
+                            type="button" id="management-to-do-list-0" data-bs-toggle="dropdown"
+                            data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span
+                                class="fas fa-ellipsis-h fs-11"></span></button>
+                        <div class="dropdown-menu dropdown-menu-end border py-2"
+                            aria-labelledby="management-to-do-list-0">
+                            <a class="dropdown-item" (click)="viewQueryData(item?.queryTxt)"><i
+                                    class="fa-solid fa-eye me-1"></i> View Query</a>
+                            <a class="dropdown-item" href="#!"><i class="fa-solid fa-file-csv me-1"></i> Export CSV</a>
+                            <div class="dropdown-divider"></div><a class="dropdown-item text-danger"
+                                (click)="deleteQueryReport(item?.id)"><i class="fa-solid fa-trash-can me-1"></i>
+                                Remove</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </mat-card-content>
+        <div class="card-footer bg-body-tertiary p-0">
+            <button class="btn btn-sm text-center w-100 text-primary py-2" type="button"
+                (click)="openAddQueryReportModal()">
+                <i class="fa-solid fa-file-circle-plus me-1 fs-6"></i> Add Query Report
+            </button>
+
+        </div>
+    </div>
+
+</mat-card>
+
+
+<mat-card class="cardWithShadow theme-card">
+    <div class="bg-holder d-none d-lg-block bg-card"
+        style="background-image:url(../../assets/img/icons/spot-illustrations/corner-4.png);"></div>
+    <mat-card-content>
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="card-title">Query Platform</h3>
+                <form [formGroup]="dataQueryForm" (ngSubmit)="searchForm()">
+                    <div class="form-floating mt-1">
+                        <textarea class="form-control" id="queryText" placeholder="Please Enter Your Query"
+                            name="queryText" formControlName="queryText" style="height: 120px"></textarea>
+                        <label for="queryText">Please Enter Your Query</label>
+                    </div>
+                    <div class="d-flex justify-content-between mt-4">
+                        <button type="submit" class="btn btn-success"><i class="mdi mdi-database-search me-1"></i>
+                            Execute
+                        </button>
+                        <div class="form-check mt-2">
+                            <input class="form-check-input" type="checkbox"  [checked]="saveQuery" id="saveQueryCheckBox" (change)="saveQueryCheckBox($event)" />
+                            <label class="form-check-label" for="saveQueryCheckBox">Save this query</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </mat-card-content>
+
+</mat-card>
+
+<mat-card class="cardWithShadow theme-card">
+    <div class=" d-lg-flex justify-content-between flex-nowrap" *ngIf="queryTableData.data.length > 0; ">
+        <h5 class="mb-0">Data Query Builder</h5>
+        <!-- Button trigger modal -->
+        <button class="btn btn-outline-success" (click)="downloadCsv()" ><i class="fa-solid fa-file-csv me-1"></i>Download CSV</button>
+    </div>
+    <mat-card-content>
+        <div class="row" *ngIf="queryTableData.data.length > 0; else elseTable; ">
+            <div id="tableExample">
+                <div id="table-responsive scrollbar">
+                    <table mat-table [dataSource]="queryTableData"
+                        class="mat-elevation-z8 table table-bordered  fs-10 mb-0">
+                        <!-- Dynamic columns -->
+                        <ng-container *ngFor="let column of queryColumnNames" [matColumnDef]="column">
+                            <th mat-header-cell *matHeaderCellDef class=" text-center w-100"> {{ column }} </th>
+                            <td mat-cell *matCellDef="let row"> {{ row[column] }} </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="queryColumnNames"></tr>
+                        <tr mat-row *matRowDef="let row; columns: queryColumnNames;"></tr>
+                    </table>
+
+                    <mat-paginator [length]="totalRecords" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 50]"
+                        (page)="handlePageEvent($event)" showFirstLastButtons>
+                    </mat-paginator>
+                </div>
+            </div>
+
+        </div>
+        <ng-template #elseTable>
+            <div class="alert alert-success text-center  fw-bold" role="alert">
+                {{ "Please Search to Execute Query..." }}
+            </div>
+        </ng-template>
+    </mat-card-content>
+</mat-card>
+
+
+<ng-template #addQueryReportModal>
+    <div class="modal-container">
+        <!-- Modal Header -->
+        <div class="modal-header">
+            <h2 mat-dialog-title>Add New Query Report</h2>
+            <a (click)="closeAddQueryReportModal()" aria-label="Close" href="javascript:void(0);">
+                <i class="fa-regular fa-circle-xmark text-dark fs-3  p-3"></i>
+            </a>
+        </div>
+        <form [formGroup]="addNewQueryReportModalForm" (ngSubmit)="confirmActionAddNewQueryReport()">
+            <!-- Modal Body -->
+            <mat-dialog-content class="modal-body">
+                <form class="forms-sample" id="saveQueryModalForm">
+                    <div class="mb-3">
+                        <label class="col-form-label" for="recipient-name"><b>Query Label :</b></label>
+                        <input type="text" class="form-control" id="queryLableModal" name="queryLableModal"
+                            formControlName="queryLableModal" placeholder="Please Enter the Query Report Label">
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label" for="message-text"><b>Query Text :</b></label>
+                        <textarea class="form-control" id="queryTextModal" name="queryTextModal"
+                            formControlName="queryTextModal" placeholder="Please Enter the Query Text" rows="4"
+                            aria-hidden="true"></textarea>
+                    </div>
+                </form>
+            </mat-dialog-content>
+
+            <!-- Modal Footer -->
+            <mat-dialog-actions align="end" class="modal-footer">
+                <button class="btn btn-sm btn-success me-3" type="submit">Submit </button>
+                <button class="btn btn-sm btn-danger" type="button" (click)="closeAddQueryReportModal()">Close</button>
+            </mat-dialog-actions>
+        </form>
+    </div>
+</ng-template>

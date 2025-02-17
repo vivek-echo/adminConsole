@@ -1,0 +1,226 @@
+<div>
+    <div class="fillter">
+        <div class="btn-group btn-group-sm" role="group" aria-label="Basic mixed styles example">
+            <a class="btn btn-success" data-bs-toggle="collapse" href="#filter" role="button" aria-expanded="false"
+                aria-controls="filterExample">
+                <i class="fa-solid fa-filter me-1"></i> Filter
+            </a>
+        </div>
+    </div>
+    <div class="collapse show mb-3" id="filter">
+        <div class="filter-body">
+            <form [formGroup]="addPermissionSearchForm" (ngSubmit)="searchForm()" class="m-t-30">
+                <div class="row g-3">
+                    <div class="col-xl-5 col-lg-5 col-md-6 col-sm-6 col-xs-12">
+                        <label class=" form-label" for="adminConsoleId">Select Admin Console :</label>
+                        <select class="form-select" id="adminConsoleId" name="adminConsoleId"
+                            formControlName="adminConsoleId" (change)="getRoles($any($event.target).value)">
+                            <option [ngValue]="0">-- Please Select Admin Console --</option>
+                            <option [ngValue]="1">BNRC Admin Console</option>
+                            <option [ngValue]="2">BNRC Web Portal</option>
+                            <option [ngValue]="3">BNRC API Gateway</option>
+                        </select>
+                    </div>
+                    <div class="col-xl-5 col-lg-5 col-md-6 col-sm-6 col-xs-12">
+                        <label class="form-label" for="userRoleId">Select Role :</label>
+                        <select class="form-select" id="userRoleId" name="userRoleId" formControlName="userRoleId">
+                            <option [ngValue]="0">-- Please Select Role --</option>
+                            <option *ngFor="let ul of userRoleData" [ngValue]="ul.roleId">{{ ul.roleName }}</option>
+                        </select>
+                    </div>
+
+
+                    <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-xs-12 ">
+                        <label class="form-label d-none d-md-block">&nbsp;</label>
+                        <button class="btn btn-success" type="submit">
+                            <i class="fa-solid fa-magnifying-glass me-1" *ngIf="!btnSerachLoading"></i>
+                            <i class="fa-solid fa-spinner fa-spin me-1" *ngIf="btnSerachLoading"></i>
+                            <span *ngIf="!btnSerachLoading">Search</span>
+                            <span *ngIf="btnSerachLoading">Loading...</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div *ngIf="menuLinkData" class="menuLinkData p-2">
+        <ul>
+            <!-- Global Links -->
+            <li *ngFor="let globalLink of menuLinkData" class="mt-2">
+                <div class="mb-2">
+                    <!-- Global Link Checkbox -->
+                    <label class="global-switch me-2">
+                        <input type="checkbox" [(ngModel)]="globalLink.checked"
+                            (change)="onCheckboxChange(globalLink, 'pl_links', $event)" [checked]="globalLink.checked"
+                            [value]="globalLink.gl_id" />
+                        <span class="global-switch-slider"></span>
+                    </label>
+                </div>
+                <div class="mt-2 " >
+                    <!-- Global Link Name -->
+                    <span class="linkname"><i [class]="globalLink.gl_class"></i> {{ globalLink.gl_name }} (GL)</span>
+
+                    <!-- Global Link Radio Buttons -->
+                    <div class="d-flex flex-wrap">
+                        <div class="p-1 d-flex align-items-center">
+                            <input type="radio" name="radio_{{ globalLink.gl_id }}" [(ngModel)]="globalLink.gl_radio"
+                                [value]='"1"' [disabled]="!globalLink.checked" [checked] ='globalLink.gl_radio == "1"' class="form-check-input" />
+                            <i class="fa-regular fa-eye ms-1" title="view Only"></i>
+                        </div>
+                        <div class="p-1 d-flex align-items-center">
+                            <input type="radio" name="radio_{{ globalLink.gl_id }}" [(ngModel)]="globalLink.gl_radio"
+                                [value]='"2"' [disabled]="!globalLink.checked"  [checked] ='globalLink.gl_radio == "2"' class="form-check-input" />
+                            <i class="fa-regular fa-pen-to-square ms-1" title="Edit & view Only"></i>
+                        </div>
+                        <div class="p-1 d-flex align-items-center">
+                            <input type="radio" name="radio_{{ globalLink.gl_id }}" [(ngModel)]="globalLink.gl_radio"
+                                [value]='"3"' [disabled]="!globalLink.checked"  [checked] ='globalLink.gl_radio == "3"' class="form-check-input" />
+                            <i class="fa-regular fa-trash-can ms-1" title="Delete & view Only"></i>
+                        </div>
+                        <div class="p-1 d-flex align-items-center">
+                            <input type="radio" name="radio_{{ globalLink.gl_id }}" [(ngModel)]="globalLink.gl_radio"
+                                 [value]='"4"' [disabled]="!globalLink.checked"  [checked] ='globalLink.gl_radio == "4"' class="form-check-input" />
+                            <i class="fa-solid fa-check-double ms-1" title="All admin rights"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Primary Links -->
+                <ul *ngIf="globalLink.pl_links">
+                    <li *ngFor="let primaryLink of globalLink.pl_links">
+                        <input type="checkbox" [(ngModel)]="primaryLink.checked" [disabled]="!globalLink.checked"
+                            (change)="onCheckboxChange(primaryLink, 'pl_tab', $event)" [value]="primaryLink.pl_id" class="form-check-input" />
+
+                        <div class="mt-2 ">
+                            <!-- Primary Link Name -->
+                            <span class="linkname"><i [class]="primaryLink.pl_class"></i> {{ primaryLink.pl_name }} (PL)</span>
+
+                            <!-- Primary Link Radio Buttons -->
+                            <div class="d-flex flex-wrap">
+                                <div class="p-1 d-flex align-items-center">
+                                    <input type="radio" name="radio_{{ primaryLink.pl_id }}" class="form-check-input"
+                                        [(ngModel)]="primaryLink.pl_radio" [value]='"1"'
+                                        [disabled]="!primaryLink.checked" [checked] ='primaryLink.pl_radio == "1"' />
+                                    <i class="fa-regular fa-eye ms-1" title="view Only"></i>
+                                </div>
+                                <div class="p-1 d-flex align-items-center">
+                                    <input type="radio" name="radio_{{ primaryLink.pl_id }}" class="form-check-input"
+                                        [(ngModel)]="primaryLink.pl_radio" [value]='"2"'
+                                        [disabled]="!primaryLink.checked" [checked] ='primaryLink.pl_radio == "2"' />
+                                    <i class="fa-regular fa-pen-to-square ms-1" title="Edit & view Only"></i>
+                                </div>
+                                <div class="p-1 d-flex align-items-center">
+                                    <input type="radio" name="radio_{{ primaryLink.pl_id }}" class="form-check-input"
+                                        [(ngModel)]="primaryLink.pl_radio" [value]='"3"'
+                                        [disabled]="!primaryLink.checked" [checked] ='primaryLink.pl_radio == "3"' />
+                                    <i class="fa-regular fa-trash-can ms-1" title="Delete & view Only"></i>
+                                </div>
+                                <div class="p-1 d-flex align-items-center">
+                                    <input type="radio" name="radio_{{ primaryLink.pl_id }}" class="form-check-input"
+                                        [(ngModel)]="primaryLink.pl_radio" [value]='"4"'
+                                        [disabled]="!primaryLink.checked" [checked] ='primaryLink.pl_radio == "4"' />
+                                    <i class="fa-solid fa-check-double ms-1" title="All admin rights"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tabs -->
+                        <ul *ngIf="primaryLink.pl_tab">
+                            <li *ngFor="let tab of primaryLink.pl_tab">
+                                <input type="checkbox" [(ngModel)]="tab.checked" [disabled]="!primaryLink.checked"
+                                    (change)="onCheckboxChange(tab, 'tab_button', $event)" [value]="tab.tab_id" class="form-check-input" />
+
+                                <div class="mt-2 ">
+                                    <!-- Tab Name -->
+                                    <span class="linkname"><i [class]="tab.tab_class"></i> {{ tab.tab_name }} (TAB)</span>
+
+                                    <!-- Tab Radio Buttons -->
+                                    <div class="d-flex flex-wrap">
+                                        <div class="p-1 d-flex align-items-center">
+                                            <input type="radio" name="radio_{{ tab.tab_id }}"  [checked] ='tab.tab_radio == "1"' class="form-check-input"
+                                                [(ngModel)]="tab.tab_radio" [value]='"1"' [disabled]="!tab.checked" />
+                                            <i class="fa-regular fa-eye ms-1" title="view Only"></i>
+                                        </div>
+                                        <div class="p-1 d-flex align-items-center">
+                                            <input type="radio" name="radio_{{ tab.tab_id }}"  [checked] ='tab.tab_radio == "2"' class="form-check-input"
+                                                [(ngModel)]="tab.tab_radio" [value]='"2"' [disabled]="!tab.checked" />
+                                            <i class="fa-regular fa-pen-to-square ms-1" title="Edit & view Only"></i>
+                                        </div>
+                                        <div class="p-1 d-flex align-items-center">
+                                            <input type="radio" name="radio_{{ tab.tab_id }}"  [checked] ='tab.tab_radio == "3"' class="form-check-input"
+                                                [(ngModel)]="tab.tab_radio" [value]='"3"' [disabled]="!tab.checked" />
+                                            <i class="fa-regular fa-trash-can ms-1" title="Delete & view Only"></i>
+                                        </div>
+                                        <div class="p-1 d-flex align-items-center">
+                                            <input type="radio" name="radio_{{ tab.tab_id }}"  [checked] ='tab.tab_radio == "4"' class="form-check-input"
+                                                [(ngModel)]="tab.tab_radio"  [value]='"4"' [disabled]="!tab.checked" />
+                                            <i class="fa-solid fa-check-double ms-1" title="All admin rights"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Buttons -->
+                                <ul *ngIf="tab.tab_button">
+                                    <li *ngFor="let button of tab.tab_button">
+                                        <input type="checkbox" [(ngModel)]="button.checked" [disabled]="!tab.checked"
+                                            (change)="onCheckboxChange(button, '', $event)" [value]="button.btn_id" class="form-check-input" />
+
+                                        <div class="mt-2 ">
+                                            <!-- Button Name -->
+                                            <span class="linkname"><i [class]="button.btn_class"></i> {{ button.btn_name }} (BTN)</span>
+
+                                            <!-- Button Radio Buttons -->
+                                            <div class="d-flex flex-wrap">
+                                                <div class="p-1 d-flex align-items-center">
+                                                    <input type="radio" name="radio_{{ button.btn_id }}"
+                                                        [(ngModel)]="button.btn_radio" [value]='"1"'  [checked] ='button.btn_radio == "1"' class="form-check-input"
+                                                        [disabled]="!button.checked" />
+                                                    <i class="fa-regular fa-eye ms-1" title="view Only"></i>
+                                                </div>
+                                                <div class="p-1 d-flex align-items-center">
+                                                    <input type="radio" name="radio_{{ button.btn_id }}" [checked] ='button.btn_radio == "2"' class="form-check-input"
+                                                        [(ngModel)]="button.btn_radio" [value]='"2"'
+                                                        [disabled]="!button.checked" />
+                                                    <i class="fa-regular fa-pen-to-square ms-1"
+                                                        title="Edit & view Only"></i>
+                                                </div>
+                                                <div class="p-1 d-flex align-items-center">
+                                                    <input type="radio" name="radio_{{ button.btn_id }}"
+                                                        [(ngModel)]="button.btn_radio" [value]='"3"' [checked] ='button.btn_radio == "3"' class="form-check-input"
+                                                        [disabled]="!button.checked" />
+                                                    <i class="fa-regular fa-trash-can ms-1"
+                                                        title="Delete & view Only"></i>
+                                                </div>
+                                                <div class="p-1 d-flex align-items-center">
+                                                    <input type="radio" name="radio_{{ button.btn_id }}"
+                                                        [(ngModel)]="button.btn_radio"  [value]='"4"' [checked] ='button.btn_radio == "4"' class="form-check-input"
+                                                        [disabled]="!button.checked" />
+                                                    <i class="fa-solid fa-check-double ms-1"
+                                                        title="All admin rights"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <div class="menuLinkDataHr text-center p-3">
+
+            <!-- Submit Button -->
+            <button class="btn btn-success " (click)="updatePermission()"><i class="fa-solid fa-floppy-disk me-1"></i>Update Menu Permission</button>
+
+        </div>
+    </div>
+
+    <div class="alert alert-success text-center  fw-bold" role="alert" *ngIf="!menuLinkData">
+        {{ "Please Search to find list" }}
+    </div>
+
+</div>

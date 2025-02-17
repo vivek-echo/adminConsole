@@ -1,0 +1,44 @@
+.menu-list-item {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: #4a4a4a;
+    text-decoration: none;
+
+    &:hover {
+        background-color: #f5f5f5;
+        color: #000;
+    }
+
+    &.activeMenu {
+        background-color: #e0f7fa;
+        font-weight: bold;
+        color: #00796b;
+    }
+
+    i {
+        font-size: 18px;
+    }
+}
+
+.child-menu {
+    margin-left: 10px;
+    padding: 5px 0;
+
+    .menu-list-item {
+        font-size: 14px;
+        padding: 8px 15px;
+
+        &:hover {
+            background-color: #e8f5e9;
+        }
+    }
+}
+
+/* Transition for smooth toggle */
+.child-menu {
+    transition: max-height 0.3s ease-in-out;
+    overflow: hidden;
+}

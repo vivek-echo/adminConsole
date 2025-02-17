@@ -1,0 +1,105 @@
+
+/* General Card Styling */
+.cardWithShadow {
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+.form-check-input , .form-check-label{
+    cursor: pointer;
+}
+
+.theme-card {
+    background-color: #ffffff;
+    padding: 16px;
+}
+
+/* Table Container Styling */
+#tableExample {
+    padding: 10px;
+    overflow-x: auto;
+    /* Enable horizontal scrolling for smaller screens */
+}
+
+#table-responsive.scrollbar {
+    max-height: 400px;
+    /* Limit table height */
+    overflow-y: auto;
+}
+
+/* Table Styling */
+table.mat-elevation-z8 {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+}
+
+table th,
+table td {
+    text-align: left;
+    padding: 12px;
+    font-size: 14px;
+}
+
+table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    border-bottom: 2px solid #ccc;
+    color: #333;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Scrollbar Styling */
+#table-responsive.scrollbar::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+}
+
+#table-responsive.scrollbar::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+#table-responsive.scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+}
+
+#table-responsive.scrollbar::-webkit-scrollbar-track {
+    background: #f4f4f4;
+    border-radius: 4px;
+}
+
+/* Paginator Styling */
+mat-paginator {
+    margin-top: 16px;
+}
+
+.mat-paginator {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mat-paginator .mat-button {
+    color: #4caf50;
+    /* Primary green color */
+}
+
+.mat-paginator .mat-button:hover {
+    background-color: rgba(76, 175, 80, 0.1);
+    border-radius: 50%;
+}
+
+.mat-paginator .mat-select-value {
+    font-size: 14px;
+    color: #333;
+}
+
+  

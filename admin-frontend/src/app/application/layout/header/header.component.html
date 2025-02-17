@@ -1,0 +1,51 @@
+<mat-toolbar class="topbar">
+  <!-- Mobile Menu -->
+  @if(!showToggle) {
+  <button mat-mini-fab color="inherit" (click)="toggleMobileNav.emit()" class="d-flex justify-content-center">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+  }
+  <!-- --------------------------------------------------------------- -->
+  <!-- Notification Dropdown -->
+  <!-- --------------------------------------------------------------- -->
+  <button mat-mini-fab color="inherit" aria-label="Notifications" class="d-flex justify-content-center"
+    *ngIf="showToggle" (click)="toggleMobileNav.emit()">
+    <span>
+      <i class="fa-solid fa-bars fs-3 text-success"></i>
+      <!-- <i class="fa-regular fa-bell fs-3 text-success "></i> -->
+    </span>
+  </button>
+
+  <span class="flex-1-auto"></span>
+
+  <!-- <a href="https://www.wrappixel.com/templates/materialm-free-angular-18-material-template/" target="_blank" mat-flat-button color="primary">Download Free</a> -->
+
+  <!-- --------------------------------------------------------------- -->
+  <!-- profile Dropdown -->
+  <!-- --------------------------------------------------------------- -->
+  <div class="row" [matMenuTriggerFor]="profilemenu" style="cursor: pointer;">
+    <div class="col">
+      <span class="fw-bold text-dark fs-9 d-block mb-0">{{userProfile.email}}</span>
+      <span class="text-secondary text-end fs-11 d-block mb-0">
+        {{userProfile.roleName}}
+      </span>
+    </div>
+  </div>
+  <button mat-fab extended color="inherit" [matMenuTriggerFor]="profilemenu" aria-label="Notifications"
+    class="d-flex justify-content-center profile-btn-dd">
+    <img src="/assets/images/profile/user-1.jpg" class="rounded-circle object-cover icon-35 profile-dd" width="35" />
+  </button>
+  <mat-menu #profilemenu="matMenu" class="topbar-dd cardWithShadow">
+    <button mat-menu-item>
+      <mat-icon class="d-flex align-items-center"><i class="fa-solid fa-user ms-1"></i></mat-icon>Profile
+    </button>
+    <button mat-menu-item>
+      <mat-icon class="d-flex align-items-center"><i class="fa-solid fa-gears ms-1"></i></mat-icon>Setting
+    </button>
+
+    <div class="p-x-12 m-t-12">
+      <a (click)="logout()" class="btn btn-outline-success w-100"><i
+          class="fa-solid fa-arrow-right-from-bracket me-2"></i>Logout</a>
+    </div>
+  </mat-menu>
+</mat-toolbar>

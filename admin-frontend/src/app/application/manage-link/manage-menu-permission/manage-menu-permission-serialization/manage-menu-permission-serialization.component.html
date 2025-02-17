@@ -1,0 +1,99 @@
+<div>
+    <div class="fillter">
+        <div class="btn-group btn-group-sm" role="group" aria-label="Basic mixed styles example">
+            <a class="btn btn-success" data-bs-toggle="collapse" href="#filter" role="button" aria-expanded="false"
+                aria-controls="filterExample">
+                <i class="fa-solid fa-filter me-1"></i> Filter
+            </a>
+        </div>
+    </div>
+    <div class="collapse show mb-3" id="filter">
+        <div class="filter-body">
+            <form [formGroup]="addPermissionSearchForm" (ngSubmit)="searchForm()" class="m-t-30">
+                <div class="row g-3">
+                    <div class="col-xl-5 col-lg-5 col-md-6 col-sm-6 col-xs-12">
+                        <label class=" form-label" for="adminConsoleId">Select Admin Console :</label>
+                        <select class="form-select" id="adminConsoleId" name="adminConsoleId"
+                            formControlName="adminConsoleId" (change)="getRoles($any($event.target).value)">
+                            <option [ngValue]="0">-- Please Select Admin Console --</option>
+                            <option [ngValue]="1">BNRC Admin Console</option>
+                            <option [ngValue]="2">BNRC Web Portal</option>
+                            <option [ngValue]="3">BNRC API Gateway</option>
+                        </select>
+                    </div>
+                    <div class="col-xl-5 col-lg-5 col-md-6 col-sm-6 col-xs-12">
+                        <label class="form-label" for="userRoleId">Select Role :</label>
+                        <select class="form-select" id="userRoleId" name="userRoleId" formControlName="userRoleId">
+                            <option [ngValue]="0">-- Please Select Role --</option>
+                            <option *ngFor="let ul of userRoleData" [ngValue]="ul.roleId">{{ ul.roleName }}</option>
+                        </select>
+                    </div>
+
+
+                    <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-xs-12 ">
+                        <label class="form-label d-none d-md-block">&nbsp;</label>
+                        <button class="btn btn-success" type="submit">
+                            <i class="fa-solid fa-magnifying-glass me-1" *ngIf="!btnSerachLoading"></i>
+                            <i class="fa-solid fa-spinner fa-spin me-1" *ngIf="btnSerachLoading"></i>
+                            <span *ngIf="!btnSerachLoading">Search</span>
+                            <span *ngIf="btnSerachLoading">Loading...</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div *ngIf="menuLinkData" class="menuLinkData p-2">
+
+
+        <div class="kanban-container">
+            <div class="global-link" *ngFor="let globalLink of menuLinkData; let gIndex = index">
+                <div class="kanban-card global" [draggable]="true" (dragstart)="onDragStart($event, gIndex, null, null)"
+                    (dragover)="onDragOver($event)" (drop)="onDrop($event, gIndex, null, null)">
+                    <h3><i class="{{ globalLink.gl_class }}"></i> {{ globalLink.gl_name }} (GL)</h3>
+                    <input type="hidden" [value]="globalLink.gl_id">
+                    <input type="hidden" [value]="globalLink.gl_radio">
+                </div>
+
+                <div class="primary-link-container">
+                    <div class="primary-link" *ngFor="let primaryLink of globalLink.pl_links; let pIndex = index">
+                        <div class="kanban-card primary" [draggable]="true"
+                            (dragstart)="onDragStart($event, gIndex, pIndex, null)" (dragover)="onDragOver($event)"
+                            (drop)="onDrop($event, gIndex, pIndex, null)">
+                            <h4><i class="{{ primaryLink.pl_class }}"></i> {{ primaryLink.pl_name }} (PL)</h4>
+                            <input type="hidden" [value]="primaryLink.pl_id">
+                            <input type="hidden" [value]="primaryLink.pl_radio">
+                        </div>
+
+                        <div class="tab-link-container">
+                            <div class="tab-link" *ngFor="let tabLink of primaryLink.pl_tab; let tIndex = index">
+                                <div class="kanban-card tab" [draggable]="true"
+                                    (dragstart)="onDragStart($event, gIndex, pIndex, tIndex)"
+                                    (dragover)="onDragOver($event)" (drop)="onDrop($event, gIndex, pIndex, tIndex)">
+                                    <p><i class="{{ tabLink.tab_class }}"></i> {{ tabLink.tab_name }} (Tab)</p>
+                                    <input type="hidden" [value]="tabLink.tab_id">
+                                    <input type="hidden" [value]="tabLink.tab_radio">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menuLinkDataHr text-center p-3">
+
+            <!-- Submit Button -->
+            <button class="btn btn-success " (click)="updatePermission()"><i
+                    class="fa-solid fa-floppy-disk me-1"></i>Update Menu Serialization </button>
+
+        </div>
+    </div>
+
+    <div class="alert alert-success text-center  fw-bold" role="alert" *ngIf="!menuLinkData">
+        {{ "Please Search to find list" }}
+    </div>
+
+</div>

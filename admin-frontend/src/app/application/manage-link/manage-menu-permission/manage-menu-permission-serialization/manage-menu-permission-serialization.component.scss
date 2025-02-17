@@ -1,0 +1,145 @@
+/* Main container for the Kanban layout */
+.menuLinkData {
+    border: 2px dashed #ddd;
+}
+
+.kanban-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+    // background-color: #f8f9fa; /* Light background for contrast */
+}
+
+/* Styling for global links */
+.global-link {
+    border: 1px solid #aaa;
+    padding: 10px;
+    background-color: #e9fce9;
+    /* Light green */
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Primary link container */
+.primary-link-container {
+    margin-top: 10px;
+    background-color: #d9eaf7;
+    /* Light blue */
+    border-radius: 8px;
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+
+/* Styling for primary links */
+.primary-link {
+    margin-bottom: 8px;
+}
+
+/* Tab link container */
+.tab-link-container {
+    margin-left: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* General card styles for draggable items */
+.kanban-card {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 10px;
+    margin: 5px 0;
+    cursor: grab;
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+    /* Darker text for better readability */
+    transition: all 0.2s ease;
+}
+
+/* Active state when dragging */
+.kanban-card:active {
+    cursor: grabbing;
+    transform: scale(1.03);
+}
+
+/* Global link card styling */
+.global {
+    background-color: #daf7da;
+    /* Lighter green */
+    border-color: #57e857;
+}
+
+/* Primary link card styling */
+.primary {
+    background-color: #d6e9f8;
+    /* Lighter blue */
+    border-color: #5a87d6;
+}
+
+/* Tab link card styling */
+.tab {
+    background-color: #fde8e8;
+    /* Lighter red */
+    border-color: #fca7a7;
+}
+
+/* Hover effect for all cards */
+.kanban-card:hover {
+    transform: translateY(-2px) scale(1.05);
+    /* Subtle lift */
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Typography adjustments */
+h3,
+h4,
+p {
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* Font size tweaks */
+h3 {
+    font-size: 16px;
+}
+
+h4 {
+    font-size: 14px;
+}
+
+p {
+    font-size: 12px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .kanban-card {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    h3 {
+        font-size: 14px;
+    }
+
+    h4 {
+        font-size: 12px;
+    }
+
+    p {
+        font-size: 10px;
+    }
+
+    .tab-link-container {
+        gap: 5px;
+    }
+}
+
+.menuLinkDataHr {
+    border-top: 2px dashed #ddd;
+}

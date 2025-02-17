@@ -1,0 +1,21 @@
+th {
+  background-color: #e6f9e6;
+  color: green;
+  font-weight: bold;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+table thead {
+  border-bottom: 2px solid #ddd;
+}
+
+table tbody tr:last-child {
+  border-bottom: 2px solid #ddd;
+}

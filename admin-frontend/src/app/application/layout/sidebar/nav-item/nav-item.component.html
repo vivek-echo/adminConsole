@@ -1,0 +1,29 @@
+<a mat-list-item (click)="item.children.length === 0 && onItemSelected(item)" [ngClass]="{
+      'mat-toolbar mat-primary activeMenu': isRouteActive(item.route)
+    }" class="menu-list-item" [attr.routerLink]="item.children.length === 0 ? item.route : null">
+  <div class="d-flex justify-content-between align-items-center w-100" *ngIf="item.children.length > 0 ; else nonChild;" (click)="toggleExpand($event, item)">
+    <i [ngClass]="item.iconName"></i>
+    <span class="hide-menu ms-2">{{ item.displayName }}</span>
+    <!-- Display expand/collapse icon if the item has children -->
+    <i class="fa ms-1" [ngClass]="{
+          'fa-chevron-down': expandedItems.has(item),
+          'fa-chevron-right': !expandedItems.has(item)
+        }" (click)="toggleExpand($event, item)">
+    </i>
+  </div>
+  <ng-template #nonChild>
+    <i [ngClass]="item.iconName"></i>
+    <span class="hide-menu ms-2">{{ item.displayName }}</span>
+    <!-- Content for when item.children.length === 0 -->
+  </ng-template>
+</a>
+
+<!-- Display children if the item is expanded -->
+<div *ngIf="expandedItems.has(item)" class="child-menu" [ngClass]="{ 'ms-4': item.children }">
+  <a mat-list-item *ngFor="let child of item.children" (click)="onItemSelected(child)" [ngClass]="{
+        'mat-toolbar mat-primary activeMenu': isRouteActive(child.route)
+      }" class="menu-list-item" [attr.routerLink]="child.route">
+    <i [ngClass]="child.iconName"></i>
+    <span class="hide-menu ms-1">{{ child.displayName }}</span>
+  </a>
+</div>

@@ -1,0 +1,72 @@
+<form [formGroup]="addMenuLinkForm" (ngSubmit)="submitForm()" class="m-t-30">
+    <div class="row mb-3">
+        <label class="col-sm-3 form-label" for="adminConsoleId">Select Admin Console :</label>
+        <div class="col-sm-9">
+            <select class="form-select" id="adminConsoleId" name="adminConsoleId" formControlName="adminConsoleId" (change)="changeAdminConsole()"
+                #adminConsoleId>
+                <option [value]="0">-- Please Select Admin Console --</option>
+                <option [value]="1">BNRC Admin Console</option>
+                <option [value]="2">BNRC Web Portal</option>
+                <option [value]="3">BNRC API Gateway</option>
+            </select>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 form-label" for="linkTypeId">Select Link Type :</label>
+        <div class="col-sm-9">
+            <select class="form-select" id="linkTypeId" name="linkTypeId" formControlName="linkTypeId"
+                (change)="changeLinkType($any($event.target).value,adminConsoleId.value)">
+                <option [value]="0">-- Please Select Link Type --</option>
+                <option [value]="1">Global Link</option>
+                <option [value]="2">Primary Link</option>
+                <option [value]="3">Tabs</option>
+                <option [value]="4">Buttons</option>
+            </select>
+        </div>
+    </div>
+    <div class="row mb-3" *ngIf="parentLink">
+        <label class="col-sm-3 form-label" for="parentLinkId">Select Parent Link :</label>
+        <div class="col-sm-9">
+            <ng-select [items]="parentlinkData" bindLabel="linkName" bindValue="linkId"
+                placeholder="-- Select Parent Link --" [searchable]="true" class="form-ngselect mt-2"
+                name="parentLinkId" formControlName="parentLinkId" (change)="onSelectParentLink($event)">
+                <ng-template ng-option-tmp let-item="item">
+                    <span *ngIf="item.parentName">{{item.parentName}}({{item.parentLinkTypeName}}) -
+                    </span>{{item.linkName}}({{item.linkTypeName}})
+                </ng-template>
+            </ng-select>
+        </div>
+
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 form-label" for="linkName">Link Name :</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="linkName" name="linkName" formControlName="linkName"
+                placeholder="Please Enter Link Name">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 form-label" for="linkUrl">Link URL :</label>
+        <div class="col-sm-6" *ngIf="linkUrl1">
+            <input type="text" class="form-control" id="linkUrl1" name="linkUrl1" formControlName="linkUrl1"
+                placeholder="Parent URL" readonly>
+        </div>
+        <div [class]="linkDivClass">
+            <input type="text" class="form-control" id="linkUrl" name="linkUrl" formControlName="linkUrl"
+                placeholder="Please Enter Link URL">
+        </div>
+
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 form-label" for="iconClass">Icon Class Name :</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="iconClass" name="iconClass" formControlName="iconClass"
+                placeholder="Please Enter Icon Class Name">
+        </div>
+    </div>
+    <div class="m-t-12">
+        <button type="submit" class="btn btn-success"><i class="fa-regular fa-square-check me-2"></i>Submit</button>
+    </div>
+
+</form>

@@ -1,0 +1,75 @@
+<div class="tab-content" id="myTabContent">
+  <div class="fillter">
+    <div class="btn-group btn-group-sm" role="group" aria-label="Basic mixed styles example">
+      <a class="btn btn-success" data-bs-toggle="collapse" href="#filter" role="button" aria-expanded="false"
+        aria-controls="filterExample">
+        <i class="bi bi-funnel me-1"></i> Filter
+      </a>
+    </div>
+  </div>
+  <div class="collapse show mb-3" id="filter">
+    <div class="filter-body">
+      <form [formGroup]="searchForm" (ngSubmit)="searchLink()">
+      <div class="row g-3">
+          <div class="col-md-5">
+            <label class="form-label" for="adminConsole">Select Admin Console :
+              <span class="text-danger">*</span></label>
+            <select id="adminConsole" class="form-select" formControlName="adminConsoleId">
+              <option value="">-- Select --</option>
+              <option value="1">BNRC Admin Console</option>
+              <option value="2">BNRC Web Portal</option>
+              <option value="3">BNRC API Gateway</option>
+            </select>
+          </div>
+          <div class="col-md-5">
+            <label class="form-label" for="linkType">Select Link Type : <span class="text-danger">*</span></label>
+            <select id="linkType" class="form-select" (change)="onChangeLinkType($event)"
+              formControlName="linkTypeId">
+              <option value="">-- Select --</option>
+              <option value="1">Global Link</option>
+              <option value="2">Primary Link</option>
+              <option value="3">Tabs</option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label d-none d-md-block" for="searchButton">&nbsp;</label>
+            <button type="submit" id="searchButton" class="btn btn-success" (click)="searchLink()">
+              <i class="fa-solid fa-magnifying-glass me-1"></i> Search
+            </button>
+          </div>
+
+         
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="table-responsive" *ngIf="links.length > 0 ">
+    <table class="table table-bordered table-hover table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Link Name</th>
+          <th>Link URL</th>
+          <th>Link Type</th>
+          <th>Admin Console</th>
+          <th>Parent Link</th>
+          <!-- <th>Action</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let link of links; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ link.linkName }}</td>
+          <td>{{ link.linkUrl }}</td>
+          <td>{{ link.linkTypeName }}</td>
+          <td>{{ link.adminConsoleName }}</td>
+          <td>{{ link.parentName }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
